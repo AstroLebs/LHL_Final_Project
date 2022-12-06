@@ -23,3 +23,6 @@ class FPL_Data_Collection:
     def get_team_data(self):
         """Returns the JSON data relating to the teams in the EPL"""
         return self.json["teams"]
+
+    def get_all_data(self):
+        return [self.json["elements"], self.json["element_types"], self.json["teams"]]
