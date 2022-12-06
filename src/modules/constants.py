@@ -43,3 +43,50 @@ FBREF_TEAM_LABELS = [
     "misc_squad",
     "misc_opponent",
 ]
+
+FPL_TEAM = [
+    [
+        "code",
+        "name",
+        "strength_overall_home",
+        "strength_overall_away",
+        "strength_attack_home",
+        "strength_attack_away",
+        "strength_defence_home",
+        "strength_defence_away",
+    ]
+]
+
+FPL_POS = [["id", "plural_name"]]
+
+FPL_PLAYER = [
+    [
+        "code",
+        "element_type",
+        "first_name",
+        "id",
+        "now_cost",
+        "status",
+        "team",
+        "total_points",
+        "minutes",
+        "goals_scored",
+        "assists",
+        "clean_sheets",
+        "goals_conceded",
+        "own_goals",
+        "penalties_saved",
+        "penalties_missed",
+        "yellow_cards",
+        "red_cards",
+        "saves",
+        "influence",
+        "creativity",
+        "threat",
+        "starts",
+        "expected_goals",
+        "expected_assists",
+        "expected_goal_involvements",
+        "expected_goals_conceded",
+    ]
+]
