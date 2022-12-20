@@ -6,20 +6,24 @@ import numpy as np
 from scipy.optimize import minimize
 import pulp
 
-with open(r"../Data/test_optimize.pickle", "rb") as input_file:
-    df = cPickle.load(input_file)
 
-with open(r"../Data/team.pickle", "rb") as input_file:
-    team = cPickle.load(input_file)
+"""expected_scores = df.predict_points
+prices = df.now_cost / 10
+position = df.element_type
+team = df.team
+names = df.web_name
 
-team_dict = dict(zip(team.code.to_list(), team.short_name.to_list()))
+decisions, captain_decisions, sub_decisions = select_team(
+    expected_scores.values, prices.values, position.values, team.values
+)"""
 
 
 def select_team(
     expected_scores, prices, positions, clubs, total_budget=100, sub_factor=0.2
 ):
     num_players = len(expected_scores)
-    model = pulp.LpProblem("Constrained value maximisation", pulp.LpMaximize)
+    
+    model = pulp.LpProblem("Constrained_value_maximisation", pulp.LpMaximize)
     decisions = [
         pulp.LpVariable("x{}".format(i), lowBound=0, upBound=1, cat="Integer")
         for i in range(num_players)
@@ -34,21 +38,16 @@ def select_team(
     ]
 
     # objective function:
-    model += (
-        sum(
-            (captain_decisions[i] + decisions[i] + sub_decisions[i] * sub_factor)
-            * expected_scores[i]
-            for i in range(num_players)
-        ),
-        "Objective",
-    )
-
-    # cost constraint
+    print(len(expected_scores))
+    model += (sum((captain_decisions[i] + decisions[i] + sub_decisions[i] * sub_factor)* expected_scores[i] for i in range(num_players)),"Objective",)
+    
+    #cost constraint
     model += (
         sum((decisions[i] + sub_decisions[i]) * prices[i] for i in range(num_players))
         <= total_budget
     )  # total cost
-
+    
+    
     # position constraints
     # 1 starting goalkeeper
     model += sum(decisions[i] for i in range(num_players) if positions[i] == 1) == 1
@@ -124,14 +123,3 @@ def select_team(
     model.solve()
 
     return decisions, captain_decisions, sub_decisions
-
-
-expected_scores = df.predict_points
-prices = df.now_cost / 10
-position = df.element_type
-team = df.team
-names = df.web_name
-
-decisions, captain_decisions, sub_decisions = select_team(
-    expected_scores.values, prices.values, position.values, team.values
-)

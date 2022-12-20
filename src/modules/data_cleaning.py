@@ -46,7 +46,7 @@ def fbref_player():
     )
 
     # Replace w/ data_collection
-    fpl = pd.read_csv("../Data/FPL_21.csv")[
+    fpl = pd.read_csv("../Data/FPL_22.csv")[
         ["first_name", "second_name", "element_type", "total_points"]
     ]
     fpl = fpl.assign(Player=fpl.first_name + " " + fpl.second_name).drop(
