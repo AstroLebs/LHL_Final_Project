@@ -7,7 +7,7 @@ The goal of this project is to use historical FPL data supplimented with data fr
 
 ## Methodology
 
-![Model](https://github.com/astrolebs/LHL_Final_Project/blob/main/output/figures/modelling.png?raw=true)
+![Model](https://github.com/AstroLebs/LHL_Final_Project/blob/main/output/figures/Modelling.png?raw=true)
 
 ## Limitations and Future Steps
 
