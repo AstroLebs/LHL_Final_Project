@@ -19,14 +19,14 @@ def get_current_fpl(as_json=False):
 
     return player_df, team_df, pos_df
 
-
-def get_historic_fpl(year: int, as_json=False):
+def get_historic_fpl(year: int):
     """
     Reads historic FPL from vaastav records hosted on github
-    """
-    return pd.read_html(
-        FPL_HIST + str(year - 1) + "-" + str(year) + "/cleaned_players.csv"
-    )
+    """    
+    url = FPL_HIST + str(year - 1) + "-" + str(year - 2000) + "/cleaned_players.csv"
+    return_df = pd.read_csv(url)
+
+    return return_df
 
 
 def player_search(player_name: str):

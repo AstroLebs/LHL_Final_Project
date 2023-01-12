@@ -1,8 +1,7 @@
 # API URLS
 FPL_URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
-FPL_HIST = (
-    "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/"
-)
+FPL_HIST = "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/"
+
 
 FBREF_URLS = "https://fbref.com/en/comps/9/2021-2022/2021-2022-Premier-League-Stats"
 FBREF_SEARCH_URL = "https://fbref.com/search/search.fcgi?search="

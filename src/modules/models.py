@@ -6,7 +6,8 @@ import numpy as np
 import _pickle as cPickle
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer, KNNImputer
+from sklearn.compose import ColumnTransformer, make_column_selector
 from sklearn.metrics import (
     mean_squared_error,
     r2_score,
@@ -24,26 +25,30 @@ from modules import constants
 
 
 def model(df):
-
+    
     y = df.pop("FPL_points")
+    df = df.T.reset_index(drop=True).T
+    categorical_preprocessing = Pipeline([
+    ('Imputer', SimpleImputer()),
+    ('onehot', OneHotEncoder(handle_unknown='ignore')),])
 
-    numeric_features = df.select_dtypes(exclude = "object").columns
-    numeric_transformer = StandardScaler()
+    numerical_preprocessing = Pipeline([
+    ('KNNImputer', KNNImputer()),
+    ('scaler', StandardScaler()),])
 
-    categorical_features = df.select_dtypes(include = "object").columns
-    categorical_transformer = OneHotEncoder(handle_unknown="ignore")
-
-
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ("num", numeric_transformer, numeric_features),
-            ("cat", categorical_transformer, categorical_features),
-        ]
-    )
+    
+    preprocessing = ColumnTransformer(
+                    [
+                        ('catecorical', categorical_preprocessing,
+                         make_column_selector(dtype_include=object)),
+                        ('numerical', numerical_preprocessing,
+                         make_column_selector(dtype_exclude=object)),
+                    ])
 
     model = Pipeline(
-        steps=[("preprocessor", preprocessor), ("model", xgb.XGBRegressor())]
+        steps=[("preprocessing", preprocessing), ("model", xgb.XGBRegressor())]
     )
+
     X_train, X_test, y_train, y_test = train_test_split(
         df, y, test_size=0.2, random_state=0
     )
@@ -65,9 +70,7 @@ def model(df):
         verbose=1,
         return_train_score=True,
     )
-
     search.fit(X_train, y_train)
-
     y_pred = search.best_estimator_.predict(X_test)
 
     mse = mean_squared_error(y_test, y_pred)
