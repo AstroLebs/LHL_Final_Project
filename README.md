@@ -3,7 +3,14 @@
 
 For the 2022-23 English Premier League season more than 10,000,000 fantasy teams were created to play in the FPL. While most of these teams are built using individuals favourite players/teams, in this project I look to take a data science approach to the question of team building.
 
-Using data from the current and historical FPL data supplimented with data from FBref.com the previous season's data is used to predict a team for the following season. 
+The goal of this project is to use historical FPL data supplimented with data from FBref.com to predict the best possible team for the start of the season.
+
+## Methodology
+
+![Model](https://github.com/astrolebs/LHL_Final_Project/blob/main/output/figures/modelling.png?raw=true)
+
+## Limitations and Future Steps
+
 ## Data Sources and Acknowledgements
 
 [Fantasy Premier League](https://fantasy.premierleague.com)
