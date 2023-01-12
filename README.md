@@ -11,7 +11,7 @@ The goal of this project is to use historical FPL data supplimented with data fr
 
 The data is pulled from Vaastav's repo of historical data along with fbref.com, merged together, and then fed into my modelling pipeline. Once my model has predicted how many FPL points each player is going to score it is passed to an optimization function to find the perfect 11.
 
-![Model](https://github.com/AstroLebs/LHL_Final_Project/blob/main/output/figures/Modelling2.png?raw=true)
+![Model](https://github.com/AstroLebs/LHL_Final_Project/blob/main/output/figures/Modelling%20(2).png?raw=true)
 
 As players transfer in to the league and don't have previous years FPL stats the current model relies on the FPL's rank of all players above the advanced stats. Using this model though, I was able to produce the following team (Point total as of December 8, 2022).
 
