@@ -17,11 +17,14 @@ def get_data(year: int):
             f"misc_{year-2000}.csv",
             f"defense_{year-2000}.csv",
             f"shooting_{year-2000}.csv",
-            # f"playing_time_{year-2000}.csv",
+            #f"playing_time_{year-2000}.csv",
             f"passing_type_{year-2000}.csv",
             f"gsc_{year-2000}.csv",
+            #f"keeper_{year-2000}.csv",
+            #f"keeper_adv_{year-2000}.csv"
         ]
     ]
+    
     data_df = players[0]
     for df in players[1:]:
         data_df = pd.concat([data_df, df], axis=1)
@@ -30,7 +33,6 @@ def get_data(year: int):
     data_df.drop(
         ["Rk", "Nation", "Pos", "Born", "Matches", "-9999"], axis=1, inplace=True
     )
-
     # Replace w/ data_collection 
     fpl = data_collection.get_historic_fpl(year)[["first_name", "second_name", "now_cost", "element_type", "total_points"]]
     fpl = fpl.assign(Player=fpl.first_name + " " + fpl.second_name).drop(
@@ -52,7 +54,6 @@ def get_data(year: int):
             else 0
         )
     )
-    
+    data_df = data_df.fillna(0)
     data_df = data_df.infer_objects()
-
     return data_df

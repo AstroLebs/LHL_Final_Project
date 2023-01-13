@@ -85,4 +85,5 @@ def get_fbref_team():
 
     squad = squad.T.drop_duplicates().T
     opponents = opponents.T.drop_duplicates().T
+    
     return squad, opponents

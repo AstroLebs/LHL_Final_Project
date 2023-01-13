@@ -25,11 +25,10 @@ from modules import constants
 
 
 def model(df):
-    
+    df = df.fillna(0)
     y = df.pop("FPL_points")
     df = df.T.reset_index(drop=True).T
     categorical_preprocessing = Pipeline([
-    ('Imputer', SimpleImputer()),
     ('onehot', OneHotEncoder(handle_unknown='ignore')),])
 
     numerical_preprocessing = Pipeline([

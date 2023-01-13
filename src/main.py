@@ -29,6 +29,7 @@ def main():
         with open(f"../output/pickles/{year}_model.pickle",'wb') as output_model:
             pickle.dump(mod, output_model)
     
+    print(test_df.isna().any().any())
     expected_scores = mod.predict(test_df.drop(["Player","Cost","FPL_points"], axis = 1))
     prices = (test_df.now_cost / 10).to_list()
     position = test_df.Position.map({'GK':1, 'DEF':2, 'MID':3, 'FWD':4}).to_list()
