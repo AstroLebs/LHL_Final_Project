@@ -17,11 +17,9 @@ def get_data(year: int):
             f"misc_{year-2000}.csv",
             f"defense_{year-2000}.csv",
             f"shooting_{year-2000}.csv",
-            #f"playing_time_{year-2000}.csv",
+            f"playing_time_{year-2000}.csv",
             f"passing_type_{year-2000}.csv",
             f"gsc_{year-2000}.csv",
-            #f"keeper_{year-2000}.csv",
-            #f"keeper_adv_{year-2000}.csv"
         ]
     ]
     
