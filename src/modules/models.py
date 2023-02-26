@@ -75,5 +75,7 @@ def model(df):
     mse = mean_squared_error(y_test, y_pred)
     rmse = mean_squared_error(y_test, y_pred, squared=False)
     r2 = r2_score(y_test, y_pred)
-
+    print('mse, rmse, r2')
+    print(mse, rmse, r2)
+    print('-'*50)
     return search, y_pred, mse, rmse, r2
