@@ -30,11 +30,7 @@ def main():
         with open(f"../output/pickles/{year}_model.pickle",'wb') as output_model:
             pickle.dump(mod, output_model)
     
-    for i in test_df.columns:
-        print(i)
-    print('*'*100)
-    print(train_df.columns)
-    print(test_df.isna().any().any())
+    test_df = test_df[test_df.Cost != 0]
     xFP = test_df.drop(['Player','Cost','FPL_points'], axis = 1).reset_index(drop=True).T.reset_index(drop=True).T
     expected_scores = mod.predict(xFP)
     prices = (test_df.Cost / 10).to_list()
@@ -46,9 +42,6 @@ def main():
     expected_scores, prices, position, team
     )
 
-    
-
-
     # Load / Run Year Start Model
     # Optimize Year Start Result
     # Return
@@ -58,28 +51,30 @@ def main():
     # Return
 
     pos_map = {1:'GK', 2:'DEF', 3: 'MID', 4:'FWD'}
-    team_names = []
-    with open('../output/subs.txt', 'w') as f:
-        for line in sub_decisions:
-            f.write(f'{line} \n')
-        
+
     with open('../output/teamlist.txt', 'w') as f:
         f.write('Starting 11: \n')
-        point_total = 0
+        predict_total = 0
+        real_total = 0
         for i in range(len(decisions)):
             if decisions[i].value() != 0:
-                team_names.append(names[i])
-                f.write(f'{names[i]} {pos_map[position[i]]}: {expected_scores[i]} points at ${prices[i]} \n')
-                player_points = test_df[test_df.Player == names[i]].FPL_points.values[0]
-                f.write(f'{names[i]} real FPL points: {player_points} \n')
-                point_total += player_points
-        f.write(f'Real Point Total: {point_total} \n')
-
-        f.write('Subs')
+                f.write(f'{names[i]} {pos_map[position[i]]}: {round(float(expected_scores[i]), 2)} points predicted at ${prices[i]} ')
+                if captain_decisions[i].value() == 1:
+                    f.write('TEAM CAPTAIN')
+                    real_total += test_df[test_df.Player == names[i]].FPL_points.values[0]
+                    predict_total += expected_scores[i]
+                f.write('\n')    
+                real_total += test_df[test_df.Player == names[i]].FPL_points.values[0]
+                predict_total += expected_scores[i]
+        
+        f.write('\n \nSubs:\n')
         for j in range(len(sub_decisions)):
             if sub_decisions[j].value() != 0:
-                team_names.append(names[j])
-                f.write(f'{names[j]} {pos_map[position[j]]}: {expected_scores[j]} points at ${prices[j]} \n')
+                f.write(f'{names[j]} {pos_map[position[j]]}: {round(float(expected_scores[i]), 2)} points at ${prices[j]} \n')
+
+        f.write(f'\n \nPredicted Point Total: {round(predict_total, 2)} \n')
+        f.write(f'Real Point Total: {real_total} \n')
+
 
 
 
