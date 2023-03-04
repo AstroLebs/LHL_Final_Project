@@ -1,5 +1,7 @@
 from modules.data_cleaning import get_data
 from modules.models import model
+from modules.initial_team import initial_team
+from modules.print_teamlist import print_teamlist
 import modules.optimizer as optimizer
 import pickle
 
@@ -27,21 +29,12 @@ def main():
             mod = pickle.load(input_model)
     except (FileNotFoundError, OSError) as e:
         mod, y_pred, mse, rmse, r2 = model(train_df.drop(["Player","Cost"], axis=1))
+        print((mse, rmse, r2))
         with open(f"../output/pickles/{year}_model.pickle",'wb') as output_model:
             pickle.dump(mod, output_model)
+   
     
-    test_df = test_df[test_df.Cost != 0]
-    xFP = test_df.drop(['Player','Cost','FPL_points'], axis = 1).reset_index(drop=True).T.reset_index(drop=True).T
-    expected_scores = mod.predict(xFP)
-    prices = (test_df.Cost / 10).to_list()
-    position = test_df.Position.map({'GK':1, 'DEF':2, 'MID':3, 'FWD':4}).to_list()
-    team = test_df.Squad.to_list()
-    names = test_df.Player.to_list()
-
-    decisions, captain_decisions, sub_decisions = optimizer.select_team(
-    expected_scores, prices, position, team
-    )
-
+    decisions, captain_decisions, sub_decisions, inputs = initial_team(mod, test_df)
     # Load / Run Year Start Model
     # Optimize Year Start Result
     # Return
@@ -50,34 +43,7 @@ def main():
     # Optimize Transfer Suggestions
     # Return
 
-    pos_map = {1:'GK', 2:'DEF', 3: 'MID', 4:'FWD'}
-
-    with open('../output/teamlist.txt', 'w') as f:
-        f.write('Starting 11: \n')
-        predict_total = 0
-        real_total = 0
-        for i in range(len(decisions)):
-            if decisions[i].value() != 0:
-                f.write(f'{names[i]} {pos_map[position[i]]}: {round(float(expected_scores[i]), 2)} points predicted at ${prices[i]} ')
-                if captain_decisions[i].value() == 1:
-                    f.write('TEAM CAPTAIN')
-                    real_total += test_df[test_df.Player == names[i]].FPL_points.values[0]
-                    predict_total += expected_scores[i]
-                f.write('\n')    
-                real_total += test_df[test_df.Player == names[i]].FPL_points.values[0]
-                predict_total += expected_scores[i]
-        
-        f.write('\n \nSubs:\n')
-        for j in range(len(sub_decisions)):
-            if sub_decisions[j].value() != 0:
-                f.write(f'{names[j]} {pos_map[position[j]]}: {round(float(expected_scores[i]), 2)} points at ${prices[j]} \n')
-
-        f.write(f'\n \nPredicted Point Total: {round(predict_total, 2)} \n')
-        f.write(f'Real Point Total: {real_total} \n')
-
-
-
-
+    print_teamlist(test_df, decisions, captain_decisions, sub_decisions, inputs)
 
 if __name__ == "__main__":
     main()

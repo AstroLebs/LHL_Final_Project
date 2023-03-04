@@ -6,7 +6,7 @@ import numpy as np
 from scipy.optimize import minimize
 import pulp
 
-
+# Thanks to Joseph O'Connor
 """expected_scores = df.predict_points
 prices = df.now_cost / 10
 position = df.element_type
