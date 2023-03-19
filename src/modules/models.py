@@ -1,27 +1,18 @@
-import sklearn
 import xgboost
-import pandas as pd
-import scipy
-import numpy as np
-import _pickle as cPickle
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn.impute import SimpleImputer, KNNImputer
+from sklearn.impute import KNNImputer
 from sklearn.compose import ColumnTransformer, make_column_selector
 from sklearn.metrics import (
     mean_squared_error,
     r2_score,
 )
 from sklearn.model_selection import (
-    cross_val_score,
-    GridSearchCV,
-    KFold,
     RandomizedSearchCV,
     train_test_split,
 )
 import xgboost as xgb
 from scipy.stats import uniform, randint
-from modules import constants
 
 
 def model(df):
@@ -29,13 +20,12 @@ def model(df):
     y = df.pop("FPL_points")
     df = df.T.reset_index(drop=True).T
     categorical_preprocessing = Pipeline([
-    ('onehot', OneHotEncoder(handle_unknown='ignore')),])
+        ('onehot', OneHotEncoder(handle_unknown='ignore')),])
 
     numerical_preprocessing = Pipeline([
-    ('KNNImputer', KNNImputer()),
-    ('scaler', StandardScaler()),])
+        ('KNNImputer', KNNImputer()),
+        ('scaler', StandardScaler()),])
 
-    
     preprocessing = ColumnTransformer(
                     [
                         ('catecorical', categorical_preprocessing,

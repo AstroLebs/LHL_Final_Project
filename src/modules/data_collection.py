@@ -1,6 +1,11 @@
 import requests
 import pandas as pd
-from modules.constants import FPL_URL, FPL_HIST, FBREF_SEARCH_URL, FBREF_PLAYER_LABELS
+from modules.constants import (
+        FPL_URL,
+        FPL_HIST,
+        FBREF_URLS,
+        FBREF_SEARCH_URL,
+        FBREF_PLAYER_LABELS)
 
 
 def get_current_fpl(as_json=False):
@@ -19,11 +24,13 @@ def get_current_fpl(as_json=False):
 
     return player_df, team_df, pos_df
 
+
 def get_historic_fpl(year: int):
     """
     Reads historic FPL from vaastav records hosted on github
-    """    
-    url = FPL_HIST + str(year - 1) + "-" + str(year - 2000) + "/cleaned_players.csv"
+    """
+    url = FPL_HIST + str(year - 1) + "-" + str(year - 2000) +\
+        "/cleaned_players.csv"
     return_df = pd.read_csv(url)
 
     return return_df
@@ -65,11 +72,13 @@ def get_fbref_team():
         try:
             table.columns = table.columns.map(lambda x: f"{x[0]}_{x[1]}")
         except Exception as e:
+            print(e)
             pass
 
         if i % 2 == 0:
             squad = pd.merge(
-                squad, table, left_on="Squad", right_on="Unnamed: 0_level_0_Squad"
+                squad, table, left_on="Squad",
+                right_on="Unnamed: 0_level_0_Squad"
             )
         else:
             if opponents is None:
@@ -85,5 +94,5 @@ def get_fbref_team():
 
     squad = squad.T.drop_duplicates().T
     opponents = opponents.T.drop_duplicates().T
-    
+
     return squad, opponents
