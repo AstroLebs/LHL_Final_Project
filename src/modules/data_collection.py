@@ -35,7 +35,6 @@ def get_historic_fpl(year: int):
 
     return return_df
 
-
 def player_search(player_name: str):
     """
     Searches FBREF for a playerand returns similar players

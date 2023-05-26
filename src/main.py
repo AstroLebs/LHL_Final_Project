@@ -6,6 +6,7 @@ from modules.print_teamlist import print_teamlist
 import pickle
 
 
+
 def main():
     year = 2022
     try:
