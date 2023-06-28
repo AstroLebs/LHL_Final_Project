@@ -1,4 +1,5 @@
 import pickle
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 from time import sleep
@@ -56,14 +57,14 @@ def scrape_fbref_scouting_reports(retry):
             else:
                 print(f"Failed to retrieve data for player: {full_url} | {player_response.status_code}")
 
-            
-            file_path = 'data.pickle'
+            date = datetime.now()
+            file_path = f'FBREF_SCOUT_{date.strftime('%Y%m%d').pickle'
 
             # Save the object to a pickle file
             with open(file_path, 'wb') as f:
                     pickle.dump(scouting_report, f)
             
-        print("Scraping completed. Scouting reports saved to 'epl_scouting_reports.csv'")
+        print("Scraping completed. Scouting reports saved")
     else:
         print("Failed to retrieve data from FBref.com")
         print(response.status_code)
