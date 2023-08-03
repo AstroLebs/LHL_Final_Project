@@ -1,28 +1,27 @@
 import pandas as pd
-import os
+import datetime as dt
 
 from modules import data_collection
 
 
 def get_data(year: int):
-    print(os.getcwd())
-    """ Keeperstats to be introduced
+    """Keeperstats to be introduced
     keepers = [
         pd.read_csv(f"../Data/FBREF_{year-1}"+"-"+f"{year-2000}"+"/" + f)
         for f in [f"keeper_{year-2000}.csv", f"keeper_adv_{year-2000}.csv"]
     ]
     """
     players = [
-        pd.read_csv(f"../Data/FBREF_{year-1}"+"-"+f"{year-2000}"+"/" + f)
+        pd.read_csv(f"../Data/FBREF_{year-1}" + "-" + f"{year-2000}" + "/" + f)
         for f in [
-            f"passing_{year-2000}.csv",
-            f"possession_{year-2000}.csv",
+            # f"passing_{year-2000}.csv",
+            # f"possession_{year-2000}.csv",
             f"player_stats_{year-2000}.csv",
             f"misc_{year-2000}.csv",
             f"defense_{year-2000}.csv",
             f"shooting_{year-2000}.csv",
             # f"playing_time_{year-2000}.csv",
-            f"passing_type_{year-2000}.csv",
+            # f"passing_type_{year-2000}.csv",
             f"gsc_{year-2000}.csv",
         ]
     ]
@@ -33,17 +32,21 @@ def get_data(year: int):
 
     data_df = data_df.T.drop_duplicates().T
 
-    data_df.drop(
-        ["Rk", "Nation", "Pos", "Born", "Matches", "-9999"], axis=1,
-        inplace=True
-    )
+    try:
+        data_df.drop(
+            ["Rk", "Nation", "Pos", "Born", "Matches", "-9999"], axis=1, inplace=True
+        )
+    except Exception:
+        data_df.drop(["Rk", "Nation", "Pos", "Born", "Matches"], axis=1, inplace=True)
 
-    fpl = data_collection.get_historic_fpl(year)[
-            ["first_name",
-             "second_name",
-             "now_cost",
-             "element_type",
-             "total_points"]]
+    if year == dt.date.today().year:
+        fpl = data_collection.get_current_fpl()[0][
+            ["first_name", "second_name", "now_cost", "element_type", "total_points"]
+        ]
+    else:
+        fpl = data_collection.get_historic_fpl(year)[
+            ["first_name", "second_name", "now_cost", "element_type", "total_points"]
+        ]
     fpl = fpl.assign(Player=fpl.first_name + " " + fpl.second_name).drop(
         ["first_name", "second_name"], axis=1
     )
@@ -63,12 +66,12 @@ def get_data(year: int):
             else 0
         )
     )
-    print(fpl.element_type.values)
+
     data_df = data_df.assign(
         Position=data_df.Player.map(
             lambda x: fpl[fpl.Player == x].element_type.values[0]
             if x in fpl.Player.to_list()
-            else '0'
+            else "0"
         )
     )
     data_df = data_df.fillna(0)

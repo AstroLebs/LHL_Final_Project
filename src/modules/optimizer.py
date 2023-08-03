@@ -33,84 +33,87 @@ def select_team(
     ]
 
     # objective function:
-    model += (sum(
-        (
-            captain_decisions[i] +
-            decisions[i] +
-            sub_decisions[i] * sub_factor
-        )
-        * expected_scores[i] for i in range(num_players)), "Objective",)
+    model += (
+        sum(
+            (captain_decisions[i] + decisions[i] + sub_decisions[i] * sub_factor)
+            * expected_scores[i]
+            for i in range(num_players)
+        ),
+        "Objective",
+    )
 
     # cost constraint
-    model += sum(
-            (decisions[i] + sub_decisions[i])
-            * prices[i] for i in range(num_players)) <= total_budget
+    model += (
+        sum((decisions[i] + sub_decisions[i]) * prices[i] for i in range(num_players))
+        <= total_budget
+    )
 
     # total cost
     # position constraints
     # 1 starting goalkeeper
-    model += sum(
-                decisions[i] for i in range(num_players) if positions[i] == 1
-            ) == 1
+    model += sum(decisions[i] for i in range(num_players) if positions[i] == 1) == 1
 
     # 2 total goalkeepers
-    model += sum(
+    model += (
+        sum(
             decisions[i] + sub_decisions[i]
             for i in range(num_players)
             if positions[i] == 1
-        ) == 2
+        )
+        == 2
+    )
 
     # 3-5 starting defenders
-    model += sum(
-                decisions[i] for i in range(num_players) if positions[i] == 2
-            ) >= 3
-    model += sum(
-                decisions[i] for i in range(num_players) if positions[i] == 2
-            ) <= 5
+    model += sum(decisions[i] for i in range(num_players) if positions[i] == 2) >= 3
+    model += sum(decisions[i] for i in range(num_players) if positions[i] == 2) <= 5
 
     # 5 total defenders
-    model += sum(
+    model += (
+        sum(
             decisions[i] + sub_decisions[i]
             for i in range(num_players)
             if positions[i] == 2
-        ) == 5
+        )
+        == 5
+    )
 
     # 3-5 starting midfielders
-    model += sum(
-                decisions[i] for i in range(num_players) if positions[i] == 3
-            ) >= 3
-    model += sum(
-                decisions[i] for i in range(num_players) if positions[i] == 3
-            ) <= 5
+    model += sum(decisions[i] for i in range(num_players) if positions[i] == 3) >= 3
+    model += sum(decisions[i] for i in range(num_players) if positions[i] == 3) <= 5
     # 5 total midfielders
-    model += sum(
+    model += (
+        sum(
             decisions[i] + sub_decisions[i]
             for i in range(num_players)
             if positions[i] == 3
-        ) == 5
+        )
+        == 5
+    )
 
     # 1-3 starting attackers
-    model += sum(
-                decisions[i] for i in range(num_players) if positions[i] == 4
-            ) >= 1
-    model += sum(
-                decisions[i] for i in range(num_players) if positions[i] == 4
-            ) <= 3
+    model += sum(decisions[i] for i in range(num_players) if positions[i] == 4) >= 1
+    model += sum(decisions[i] for i in range(num_players) if positions[i] == 4) <= 3
 
     # 3 total attackers
-    model += sum(
+    model += (
+        sum(
             decisions[i] + sub_decisions[i]
             for i in range(num_players)
             if positions[i] == 4
-        ) == 3
+        )
+        == 3
+    )
 
     # club constraint
     for club_id in np.unique(clubs):
-        model += sum(
+        model += (
+            sum(
                 decisions[i] + sub_decisions[i]
                 for i in range(num_players)
                 if clubs[i] == club_id
-            ) <= 3
+            )
+            <= 3
+        )
     # max 3 players
 
     model += sum(decisions) == 11  # total team size

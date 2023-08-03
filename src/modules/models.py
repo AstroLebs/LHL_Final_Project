@@ -19,20 +19,33 @@ def model(df):
     df = df.fillna(0)
     y = df.pop("FPL_points")
     df = df.T.reset_index(drop=True).T
-    categorical_preprocessing = Pipeline([
-        ('onehot', OneHotEncoder(handle_unknown='ignore')),])
+    categorical_preprocessing = Pipeline(
+        [
+            ("onehot", OneHotEncoder(handle_unknown="ignore")),
+        ]
+    )
 
-    numerical_preprocessing = Pipeline([
-        ('KNNImputer', KNNImputer()),
-        ('scaler', StandardScaler()),])
+    numerical_preprocessing = Pipeline(
+        [
+            ("KNNImputer", KNNImputer()),
+            ("scaler", StandardScaler()),
+        ]
+    )
 
     preprocessing = ColumnTransformer(
-                    [
-                        ('catecorical', categorical_preprocessing,
-                         make_column_selector(dtype_include=object)),
-                        ('numerical', numerical_preprocessing,
-                         make_column_selector(dtype_exclude=object)),
-                    ])
+        [
+            (
+                "catecorical",
+                categorical_preprocessing,
+                make_column_selector(dtype_include=object),
+            ),
+            (
+                "numerical",
+                numerical_preprocessing,
+                make_column_selector(dtype_exclude=object),
+            ),
+        ]
+    )
 
     model = Pipeline(
         steps=[("preprocessing", preprocessing), ("model", xgb.XGBRegressor())]
@@ -65,7 +78,7 @@ def model(df):
     mse = mean_squared_error(y_test, y_pred)
     rmse = mean_squared_error(y_test, y_pred, squared=False)
     r2 = r2_score(y_test, y_pred)
-    print('mse, rmse, r2')
+    print("mse, rmse, r2")
     print(mse, rmse, r2)
-    print('-'*50)
+    print("-" * 50)
     return search, y_pred, mse, rmse, r2

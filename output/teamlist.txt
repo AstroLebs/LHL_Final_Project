@@ -1,23 +1,23 @@
 Starting 11: 
-Michail Antonio FWD: 185.82 points predicted at $ 7.3 TEAM CAPTAIN
-Jarrod Bowen MID: 148.13 points predicted at $ 6.9 
-Aymeric Laporte DEF: 105.94 points predicted at $ 6.0 
-Bryan Mbeumo MID: 169.92 points predicted at $ 5.2 
-Illan Meslier GK: 138.58 points predicted at $ 4.8 
-Antonio Rüdiger DEF: 123.68 points predicted at $ 6.1 
-Bukayo Saka MID: 168.36 points predicted at $ 6.7 
-Mohamed Salah MID: 143.83 points predicted at $ 13.1 
-Leandro Trossard MID: 157.32 points predicted at $ 5.9 
-Kyle Walker-Peters DEF: 109.13 points predicted at $ 4.8 
-Ollie Watkins FWD: 152.08 points predicted at $ 7.5 
+Trent Alexander-Arnold DEF: 128.16 points predicted at $ 8.0 
+Jarrod Bowen MID: 139.08 points predicted at $ 7.0 
+Eberechi Eze MID: 125.61 points predicted at $ 6.5 
+Harry Kane FWD: 125.21 points predicted at $ 12.5 
+Bryan Mbeumo MID: 156.53 points predicted at $ 6.5 TEAM CAPTAIN
+Jordan Pickford GK: 67.52 points predicted at $ 4.5 
+Fabian Schär DEF: 105.01 points predicted at $ 5.0 
+Virgil van Dijk DEF: 115.4 points predicted at $ 6.0 
+Ollie Watkins FWD: 150.63 points predicted at $ 8.0 
+Joe Willock MID: 128.69 points predicted at $ 5.5 
+Granit Xhaka MID: 122.17 points predicted at $ 6.0 
 
  
 Subs:
-Marc Guéhi DEF: 103.39 points at $4.5 
-Emiliano Martínez GK: 124.61 points at $5.5 
-Tyrone Mings DEF: 105.37 points at $5.0 
-Allan Saint-Maximin FWD: 141.91 points at $6.7 
+Ben Mee DEF: 101.59 points at $5.0 
+Nick Pope GK: 61.59 points at $5.5 
+Andrew Robertson DEF: 100.94 points at $6.5 
+Dominic Solanke FWD: 111.4 points at $6.5 
 
  
-Predicted Point Total: 1788.63 
-Real Point Total: 1819 
+Predicted Point Total: 1677.06 
+Real Point Total: 2014 
