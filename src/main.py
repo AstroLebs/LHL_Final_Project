@@ -10,7 +10,7 @@ import pickle
 
 def main():
     os.chdir("src/")
-    year = 2023
+    year = 2022
     try:
         with open(f"../output/pickles/{year-1}.pickle", "rb") as input_train:
             train_df = pickle.load(input_train)
@@ -40,8 +40,16 @@ def main():
         with open(f"../output/pickles/{year}_model.pickle", "wb") as output_model:
             pickle.dump(mod, output_model)
 
-    decisions, captain_decisions, sub_decisions, inputs = initial_team(
-        mod, test_df[columns]
+    (
+        decisions,
+        captain_decisions,
+        sub_decisions,
+        inputs,
+        final_player_list,
+    ) = initial_team(mod, test_df[columns])
+
+    final_player_list.to_csv(
+        f"../output/{year}_predictions.csv", index=False, header=False
     )
 
     # Load / Run Year Start Model
@@ -52,7 +60,7 @@ def main():
     # Optimize Transfer Suggestions
     # Return
 
-    print_teamlist(test_df, decisions, captain_decisions, sub_decisions, inputs)
+    print_teamlist(test_df, decisions, captain_decisions, sub_decisions, inputs, year)
 
 
 if __name__ == "__main__":

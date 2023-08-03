@@ -14,14 +14,14 @@ def get_data(year: int):
     players = [
         pd.read_csv(f"../Data/FBREF_{year-1}" + "-" + f"{year-2000}" + "/" + f)
         for f in [
-            # f"passing_{year-2000}.csv",
-            # f"possession_{year-2000}.csv",
+            f"passing_{year-2000}.csv",
+            f"possession_{year-2000}.csv",
             f"player_stats_{year-2000}.csv",
             f"misc_{year-2000}.csv",
-            f"defense_{year-2000}.csv",
+            # f"defense_{year-2000}.csv",
             f"shooting_{year-2000}.csv",
             # f"playing_time_{year-2000}.csv",
-            # f"passing_type_{year-2000}.csv",
+            f"passing_type_{year-2000}.csv",
             f"gsc_{year-2000}.csv",
         ]
     ]

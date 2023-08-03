@@ -2,15 +2,6 @@ import numpy as np
 import pulp
 
 # Thanks to Joseph O'Connor
-"""expected_scores = df.predict_points
-prices = df.now_cost / 10
-position = df.element_type
-team = df.team
-names = df.web_name
-
-decisions, captain_decisions, sub_decisions = select_team(
-    expected_scores.values, prices.values, position.values, team.values
-)"""
 
 
 def select_team(
@@ -24,12 +15,12 @@ def select_team(
         for i in range(num_players)
     ]
     captain_decisions = [
-        pulp.LpVariable("y{}".format(i), lowBound=0, upBound=1, cat="Integer")
-        for i in range(num_players)
+        pulp.LpVariable("y{}".format(j), lowBound=0, upBound=1, cat="Integer")
+        for j in range(num_players)
     ]
     sub_decisions = [
-        pulp.LpVariable("z{}".format(i), lowBound=0, upBound=1, cat="Integer")
-        for i in range(num_players)
+        pulp.LpVariable("z{}".format(k), lowBound=0, upBound=1, cat="Integer")
+        for k in range(num_players)
     ]
 
     # objective function:
@@ -51,6 +42,7 @@ def select_team(
     # total cost
     # position constraints
     # 1 starting goalkeeper
+    print(type(decisions))
     model += sum(decisions[i] for i in range(num_players) if positions[i] == 1) == 1
 
     # 2 total goalkeepers
