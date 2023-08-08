@@ -56,12 +56,12 @@ def model(df):
     )
 
     RANDSCV_PARAMS = {
-        "model__colsample_bytree": uniform(0.7, 0.3),
-        "model__gamma": uniform(0, 0.5),
-        "model__learning_rate": uniform(0.03, 0.3),
+        "model__colsample_bytree": uniform(0.1, 0.7),
+        "model__gamma": uniform(0, 1.5),
+        "model__learning_rate": uniform(0.01, 0.5),
         "model__max_depth": randint(2, 6),
-        "model__n_estimators": randint(100, 150),
-        "model__subsample": uniform(0.6, 0.4),
+        "model__n_estimators": randint(75, 225),
+        "model__subsample": uniform(0.2, 0.8),
     }
     search = RandomizedSearchCV(
         model,
@@ -69,7 +69,7 @@ def model(df):
         random_state=3791,
         n_iter=100,
         cv=10,
-        verbose=1,
+        verbose=0,
         return_train_score=True,
     )
     search.fit(X_train, y_train)
