@@ -3,20 +3,20 @@ Harvey Barnes Leicester City MID: 126.02 points predicted at $ 6.5
 Jarrod Bowen West Ham MID: 152.81 points predicted at $ 7.0 TEAM CAPTAIN
 Ben Davies Tottenham DEF: 111.04 points predicted at $ 4.5 
 Harry Kane Tottenham FWD: 126.09 points predicted at $ 12.5 
-John McGinn Aston Villa MID: 120.3 points predicted at $ 5.5 
 Tyrone Mings Aston Villa DEF: 108.84 points predicted at $ 4.5 
-Aaron Ramsdale Arsenal GK: 64.71 points predicted at $ 5.0 
+Jordan Pickford Everton GK: 61.4 points predicted at $ 4.5 
 Marcus Rashford Manchester Utd MID: 145.0 points predicted at $ 9.0 
 Mohamed Salah Liverpool MID: 134.29 points predicted at $ 12.5 
 Virgil van Dijk Liverpool DEF: 99.9 points predicted at $ 6.0 
+James Ward-Prowse Southampton MID: 126.06 points predicted at $ 6.0 
 Ollie Watkins Aston Villa FWD: 121.33 points predicted at $ 8.0 
 
  
 Subs:
 Rico Henry Brentford DEF: 85.72 points at $4.5 
-Jordan Pickford Everton GK: 61.4 points at $4.5 
+Bernd Leno Fulham GK: 58.92 points at $4.5 
 Ethan Pinnock Brentford DEF: 88.56 points at $4.5 
 Deniz Undav Brighton FWD: 101.28 points at $5.5 
 
  
-Predicted Point Total: 1615.94 
+Predicted Point Total: 1618.39 
