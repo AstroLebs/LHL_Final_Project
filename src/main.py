@@ -10,7 +10,7 @@ import pickle
 
 def main():
     os.chdir("src/")
-    year = 2023
+    year = 2024
     try:
         with open(f"../output/pickles/{year-1}.pickle", "rb") as input_train:
             train_df = pickle.load(input_train)
